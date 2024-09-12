@@ -1,0 +1,34 @@
+name: CI
+
+# 何时触发工作流
+on:
+  # main分支
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # 允许手动触发
+  workflow_dispatch:
+
+# 任务
+jobs:
+  # 克隆仓库代码
+  checkout:
+    # 系统类型
+    runs-on: ubuntu-latest
+
+    # 步骤
+    steps:
+      - uses: actions/checkout@v3
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      # 执行shell命令
+      - name: Run a one-line script
+        run: echo "Hello, world!"
+
+      - name: Run a multi-line script
+        run: |
+          echo "Add other actions to build,"
+          echo "test, and deploy your project."
