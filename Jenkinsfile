@@ -1,3 +1,5 @@
+#!groovy
+
 pipeline {
     agent { 
         node { 
@@ -10,7 +12,7 @@ pipeline {
         String month = new Date().format("MM") 
         String day = new Date().format("dd") 
         String time = new Date().format("HHmmss") 
-        image = "swr.cn-south-1.myhuaweicloud.com/zheng/go-hello-world"
+        image = "zhengqinghong/go-hello-world"
     }
 
     stages {
@@ -21,21 +23,20 @@ pipeline {
                         env.docker_image = "${image}:main-${year}${month}${day}${time}-${BUILD_ID}"
                         retry(3) {
                             sh """
-                                docker run --rm \
-                                    -v \$(pwd):/workspace \
-                                    -v /root/.docker/config.json:/kaniko/.docker/config.json:ro \
-                                    gcr.io/kaniko-project/executor:latest \
-                                    --dockerfile=Dockerfile \
-                                    --destination=${env.docker_image} \
-                                    --cache-copy-layers \
-                                    --cache=true \
-                                    --cache-repo=${image} \
-                                    --skip-tls-verify
+                            docker run --rm \
+                                -v $(pwd):/workspace \
+                                -v /root/.docker/config.json:/kaniko/.docker/config.json:ro \
+                                gcr.io/kaniko-project/executor:latest \
+                                --dockerfile=Dockerfile \
+                                --destination=${docker_image} \
+                                --cache-copy-layers \
+                                --cache=true \
+                                --cache-repo=${image} \
                             """
                         }
                     } catch (error) {
                         env.error = sh(returnStdout: true, script: "echo 构建镜像失败: ${error}").trim()
-                        echo "Caught: ${error}"
+                        echo "error: ${error}"
                         sh "exit 1"
                     }
                 }
