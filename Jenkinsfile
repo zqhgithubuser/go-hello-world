@@ -24,7 +24,7 @@ pipeline {
                         retry(3) {
                             sh """
                             docker run --rm \
-                                -v $(pwd):/workspace \
+                                -v \$(pwd):/workspace \
                                 -v /root/.docker/config.json:/kaniko/.docker/config.json:ro \
                                 gcr.io/kaniko-project/executor:latest \
                                 --dockerfile=Dockerfile \
