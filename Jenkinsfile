@@ -10,7 +10,7 @@ pipeline {
         String month = new Date().format("MM") 
         String day = new Date().format("dd") 
         String time = new Date().format("HHmmss") 
-        image = "zhengqinghong/go-hello-world"
+        image = "swr.cn-south-1.myhuaweicloud.com/zheng/go-hello-world"
     }
 
     stages {
