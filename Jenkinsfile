@@ -23,15 +23,15 @@ pipeline {
                         env.docker_image = "${image}:main-${year}${month}${day}${time}-${BUILD_ID}"
                         retry(3) {
                             sh """
-                            docker run --rm \
-                                -v $(pwd):/workspace \
-                                -v /root/.docker/config.json:/kaniko/.docker/config.json:ro \
-                                gcr.io/kaniko-project/executor:latest \
-                                --dockerfile=Dockerfile \
-                                --destination=${docker_image} \
-                                --cache-copy-layers \
-                                --cache=true \
-                                --cache-repo=${image} \
+                                docker run --rm \
+                                    -v $(pwd):/workspace \
+                                    -v /root/.docker/config.json:/kaniko/.docker/config.json:ro \
+                                    gcr.io/kaniko-project/executor:latest \
+                                    --dockerfile=Dockerfile \
+                                    --destination=${docker_image} \
+                                    --cache-copy-layers \
+                                    --cache=true \
+                                    --cache-repo=${image} \
                             """
                         }
                     } catch (error) {
