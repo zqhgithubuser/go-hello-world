@@ -31,8 +31,7 @@ pipeline {
                                 --destination=${docker_image} \
                                 --cache-copy-layers \
                                 --cache=true \
-                                --cache-repo=${image} \
-                                --skip-tls-verify
+                                --cache-repo=${image}
                             """
                         }
                     } catch (error) {
