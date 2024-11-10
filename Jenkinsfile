@@ -30,7 +30,7 @@ pipeline {
                                     --cache-copy-layers \
                                     --cache=true \
                                     --cache-repo=${image} \
-                                    –-skip-tls-verify
+                                    --skip-tls-verify
                             """
                         }
                     } catch (error) {
