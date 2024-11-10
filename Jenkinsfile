@@ -36,8 +36,7 @@ pipeline {
                             """
                         }
                     } catch (error) {
-                        env.error = sh(returnStdout: true, script: "echo 构建镜像失败: ${error}").trim()
-                        echo "error: ${error}"
+                        echo "镜像构建失败: ${error}"
                         sh "exit 1"
                     }
                 }
