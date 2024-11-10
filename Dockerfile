@@ -1,8 +1,8 @@
 FROM golang:1.18-alpine AS builder
-COPY hello.go /
+COPY hello-world.go /
 WORKDIR /
-RUN ["go","build","hello.go"]
+RUN go build hello-world.go
 
 FROM alpine:3.19.1
-COPY --from=builder /hello /hello
-CMD ["/hello"]
+COPY --from=builder /hello-world /hello-world
+CMD ["/hello-world"]
